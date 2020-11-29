@@ -3,7 +3,6 @@ package nflib
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
 	"net"
 	"strconv"
 	"strings"
@@ -34,7 +33,6 @@ func NewMsg(addr *net.IP, port uint16) *msg {
 		}
 
 		res.Port = port
-		fmt.Printf("Msg: %v\n", res)
 	}
 	return res
 }
