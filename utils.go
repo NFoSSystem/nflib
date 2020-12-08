@@ -112,7 +112,7 @@ func SendPingMessageToRouter(actionName string, debugLog *log.Logger, errLog *lo
 	}
 
 	port := 9082
-	conn, err := net.DialTCP("udp", nil, &net.TCPAddr{rIp, port, ""})
+	conn, err := net.DialTCP("tcp", nil, &net.TCPAddr{rIp, port, ""})
 	if err != nil {
 		errLog.Printf("Error opening TCP connection to ip %s and port %d. Action will be terminated.\n", rIp, port)
 	}
