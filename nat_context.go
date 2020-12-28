@@ -7,12 +7,12 @@ import (
 	"net"
 )
 
-func ipv4ToInt32(ip *net.IP) uint32 {
+func Ipv4ToInt32(ip *net.IP) uint32 {
 	ipB := []byte(*ip)
 	return uint32(ipB[12])<<24 | uint32(ipB[13])<<16 | uint32(ipB[14])<<8 | uint32(ipB[15])
 }
 
-func uint32ToIpv4(addr uint32) *net.IP {
+func Uint32ToIpv4(addr uint32) *net.IP {
 	ip := net.IPv4(byte(addr>>24), byte((0xFFFFFF&addr)>>16), byte((0xFFFF&addr)>>8), byte(255&addr))
 	return &ip
 }
