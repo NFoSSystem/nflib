@@ -66,3 +66,22 @@ func SendToRouter(pktChan chan Packet, addr *net.IP, port uint16) {
 		}
 	}
 }
+
+func GetStringFromPortSlice(ps []uint16) string {
+	inLen := len(ps)
+	buff := make([]byte, inLen*2)
+	for i := 0; i < inLen; i++ {
+		binary.BigEndian.PutUint16(buff[i*2:], ps[i])
+	}
+	return string(buff)
+}
+
+func GetPortSliceFromString(ps string) []uint16 {
+	inBuff := []byte(ps)
+	inLen := len(inBuff)
+	res := make([]uint16, inLen*2)
+	for i := 0; i < inLen/2; i++ {
+		res[i] = binary.BigEndian.Uint16(inBuff[i*2:])
+	}
+	return res
+}
