@@ -2,6 +2,7 @@ package nflib
 
 import (
 	"bytes"
+	"encoding/base64"
 	"encoding/binary"
 	"log"
 	"net"
@@ -73,13 +74,16 @@ func GetStringFromPortSlice(ps []uint16) string {
 	for i := 0; i < inLen; i++ {
 		binary.BigEndian.PutUint16(buff[i*2:], ps[i])
 	}
-	return string(buff)
+	return base64.StdEncoding.EncodeToString(buff)
 }
 
 func GetPortSliceFromString(ps string) []uint16 {
-	inBuff := []byte(ps)
+	inBuff, err := base64.StdEncoding.DecodeString(ps)
+	if err != nil {
+		return []uint16{}
+	}
 	inLen := len(inBuff)
-	res := make([]uint16, inLen*2)
+	res := make([]uint16, inLen/2)
 	for i := 0; i < inLen/2; i++ {
 		res[i] = binary.BigEndian.Uint16(inBuff[i*2:])
 	}
