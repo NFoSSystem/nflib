@@ -13,12 +13,13 @@ type msg struct {
 	Name  [10]byte
 	Port  uint16
 	CntId uint16
+	Repl  bool
 }
 
 /*
 Returns from an address and a port a message to send to the gateway.
 */
-func NewMsg(addr *net.IP, actionName string, port uint16, cntId uint16) *msg {
+func NewMsg(addr *net.IP, actionName string, port uint16, cntId uint16, repl bool) *msg {
 	res := new(msg)
 	split := strings.Split(addr.String(), ".")
 	if split == nil || len(split) != 4 {
@@ -37,6 +38,7 @@ func NewMsg(addr *net.IP, actionName string, port uint16, cntId uint16) *msg {
 		copy(res.Name[:], []byte(actionName))
 		res.Port = port
 		res.CntId = cntId
+		res.Repl = repl
 	}
 	return res
 }
